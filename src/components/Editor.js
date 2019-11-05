@@ -12,7 +12,8 @@ class Editor extends React.Component {
         color: "form",
         date: "",
         face: "",
-        message: ""
+        message: "",
+        mood: []
       }
     };
     this.handleDate = this.handleDate.bind(this);
@@ -53,24 +54,29 @@ class Editor extends React.Component {
 
   handleMessage(ev) {
     const message = ev.target.value;
-    this.setState(prevState => {
-      return {
-        editor: {
-          ...prevState.editor,
-          ...this.state.message,
-          message
-        }
-      };
-    });
+    if (this.state.face === ":)") {
+      this.setState(prevState => {
+        return {
+          editor: {
+            ...prevState.editor,
+            ...this.state.message,
+            message
+          }
+        };
+      });
+    }
   }
 
   handleClick(ev) {
     ev.preventDefault();
     this.saveData = true;
+    const face = this.state.face;
     this.setState(prevState => {
       return {
         editor: {
-          ...prevState.editor
+          ...prevState.editor,
+          ...this.state.mood,
+          face
         }
       };
     });

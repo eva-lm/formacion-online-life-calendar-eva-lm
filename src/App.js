@@ -1,9 +1,7 @@
 import React from "react";
-import Editor from "./Editor";
-import Calendar from "./Calendar";
-import Home from "./Home";
-import Detail from "./Detail";
-import "../stylesheets/App.scss";
+import Editor from "./components/Editor";
+import Calendar from "./components/Calendar";
+import "./stylesheets/App.scss";
 import { Switch, Route } from "react-router-dom";
 
 function App() {
@@ -14,10 +12,10 @@ function App() {
           exact
           path="/"
           render={() => {
-            return <Home />;
+            return <Calendar />;
           }}
         />
-        <Route path="/editor" component={Detail} />
+        <Route path="/editor" component={Editor} />
       </Switch>
     </div>
   );
