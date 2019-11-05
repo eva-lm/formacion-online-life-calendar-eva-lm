@@ -1,5 +1,4 @@
 import React from "react";
-import Calendar from "./Calendar";
 import "../stylesheets/Editor.scss";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,6 @@ class Editor extends React.Component {
 
     this.state = {
       editor: {
-        color: "form",
         date: "",
         face: "",
         message: "",
@@ -54,42 +52,32 @@ class Editor extends React.Component {
 
   handleMessage(ev) {
     const message = ev.target.value;
-    if (this.state.face === ":)") {
-      this.setState(prevState => {
-        return {
-          editor: {
-            ...prevState.editor,
-            ...this.state.message,
-            message
-          }
-        };
-      });
-    }
+
+    this.setState(prevState => {
+      return {
+        editor: {
+          ...prevState.editor,
+          ...this.state.message,
+          message
+        }
+      };
+    });
   }
 
   handleClick(ev) {
     ev.preventDefault();
     this.saveData = true;
-    const face = this.state.face;
-    this.setState(prevState => {
-      return {
-        editor: {
-          ...prevState.editor,
-          ...this.state.mood,
-          face
-        }
-      };
-    });
-    //alert("carita añadida!");
+    //const face = this.setState(face);
+
+    //console.log(face);
   }
-  handleBack() {}
 
   render() {
     const { editor, date, face, message } = this.state;
     if (this.saveData === true) {
       return (
         <div>
-          <p>{editor.face}</p>
+          <p>{editor.mood}</p>
           <Link to="/" className="back">
             <button onClick={this.handleBack}>Volver</button>
           </Link>
