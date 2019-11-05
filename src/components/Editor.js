@@ -1,6 +1,7 @@
 import React from "react";
 import Calendar from "./Calendar";
 import "../stylesheets/Editor.scss";
+import { Link } from "react-router-dom";
 
 class Editor extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Editor extends React.Component {
 
     this.state = {
       editor: {
+        color: "form",
         date: "",
         face: "",
         message: ""
@@ -16,7 +18,7 @@ class Editor extends React.Component {
     this.handleDate = this.handleDate.bind(this);
     this.handleFace = this.handleFace.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
-    this.saveData = this.saveData.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
   handleDate(ev) {
     const date = ev.target.value;
@@ -62,8 +64,9 @@ class Editor extends React.Component {
     });
   }
 
-  saveData(ev) {
+  handleClick(ev) {
     ev.preventDefault();
+    this.saveData = true;
     this.setState(prevState => {
       return {
         editor: {
@@ -71,14 +74,24 @@ class Editor extends React.Component {
         }
       };
     });
-    alert(this.state);
+    //alert("carita añadida!");
   }
+  handleBack() {}
 
   render() {
     const { editor, date, face, message } = this.state;
-
+    if (this.saveData === true) {
+      return (
+        <div>
+          <p>{editor.face}</p>
+          <Link to="/" className="back">
+            <button onClick={this.handleBack}>Volver</button>
+          </Link>
+        </div>
+      );
+    }
     return (
-      <form className="form">
+      <form className="form hidden" id="idForm">
         <fieldset>
           <label htmlFor="date">Fecha</label>
           <input
@@ -125,13 +138,13 @@ class Editor extends React.Component {
             />
           </label>
         </fieldset>
-        <button className="save" onClick={this.saveData}>
+        <button className="save" onClick={this.handleClick}>
           Guardar
         </button>
-        <button className="cancel">Cancelar</button>
+        <Link to="/" className="back">
+          <button className="cancel">Cancelar</button>
+        </Link>
         <span>{JSON.stringify(this.state)}</span>
-
-        <Calendar editor={editor} />
       </form>
     );
   }
